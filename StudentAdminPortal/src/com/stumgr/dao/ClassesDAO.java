@@ -156,7 +156,7 @@ public class ClassesDAO {
 		}
 	}
 	
-	private void displayClassList() throws ClassNotFoundException, SQLException {
+	void displayClassList() throws ClassNotFoundException, SQLException {
 		// TODO Auto-generated method stub
 		Connection con = DbUtil.dbConn();
 		Statement st = con.createStatement();

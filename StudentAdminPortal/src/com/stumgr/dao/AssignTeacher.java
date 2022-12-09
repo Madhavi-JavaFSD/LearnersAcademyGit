@@ -16,7 +16,13 @@ import com.stumgr.dbutil.DbUtil;
 
 public class AssignTeacher {
 
+	ClassesDAO classesDAOObj = new ClassesDAO();
+	SubjectDAO subjectDAOObj = new SubjectDAO();
+	TeacherDAO teacherDAOObj = new TeacherDAO();
 	public void mainAssign(Scanner sc) throws ClassNotFoundException, SQLException {
+		classesDAOObj.displayClassList();
+		subjectDAOObj.displaySubjects();
+		teacherDAOObj.displayTeachersList();
 		displayAll();
 		while(true)
 		{
@@ -39,7 +45,6 @@ public class AssignTeacher {
 				assignTeachertoClass(sc);
 				break;
 			case 2:
-				System.out.println("You have chosen to delete the subject that had been assigned earlier for a class.\n");
 				deleteTeacherAssigned(sc);
 				break;
 			case 3:
@@ -64,7 +69,7 @@ public class AssignTeacher {
 		System.out.println("You have chosen to assign a teacher to a subject for a class.\n--"
 				+ "Please note that you can add a teacher only if the teacher ID is "
 				+ "\nalready present in the Teacher table.--");
-		displayClassSubject();
+		//displayClassSubject();
 		System.out.println("Please enter the ID of the class-");
 		int nClassID = 0;
 		int nSubID = 0;
@@ -84,7 +89,7 @@ public class AssignTeacher {
 					Statement st = con.createStatement();
 					//UPDATE Class_Subject_Teacher SET TeacherID=1 WHERE ClassID=1 and SubjectID=1;
 					String sql = "insert into Class_Subject_Teacher(ClassID,SubjectID,TeacherID) values (" + nClassID +"," + nSubID + "," + nTeacherID +")";
-					System.out.println("sql--assign--" + sql);
+					//System.out.println("sql--assign--" + sql);
 					int rows = 0;
 					try
 					{
@@ -148,7 +153,7 @@ public class AssignTeacher {
 					Statement st = con.createStatement();
 					//UPDATE Class_Subject_Teacher SET TeacherID=1 WHERE ClassID=1 and SubjectID=1;
 					String sql = "update Class_Subject_Teacher set TeacherID = " + nTeacherID + " where ClassID=" + nClassID +" and SubjectID=" + nSubID;
-					System.out.println("modify--sql--" + sql);
+					//System.out.println("modify--sql--" + sql);
 					int rows = 0;
 					try
 					{
@@ -267,7 +272,7 @@ public class AssignTeacher {
 				Connection con = DbUtil.dbConn();
 				Statement st = con.createStatement();
 				String sql = "update Class_Subject_Teacher set TeacherID = NULL where ClassID=" + nClassID +" and SubjectID=" + nSubID;
-				System.out.println("sql--" + sql);
+				//System.out.println("sql--" + sql);
 				int rows = 0;
 				try
 				{
@@ -344,7 +349,8 @@ public class AssignTeacher {
 		} 
 		else 
 		{
-			System.out.println("--Assignment of Teachers to classes and subjects--");
+			System.out.println("---------------------------------------------------------------------------------------------");
+			System.out.println("--Current assignment of Teachers to classes and subjects--");
 			System.out.println("---------------------------------------------------------------------------------------------");
 			System.out.format("%7s %10s %10s %15s %10s %15s ", "ClassID","ClassName","SubjectID", "SubjectName", "TeacherID", "TeacherName");
 			System.out.println(); 

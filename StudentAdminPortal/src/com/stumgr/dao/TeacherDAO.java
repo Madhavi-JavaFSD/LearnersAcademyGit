@@ -143,7 +143,7 @@ public class TeacherDAO {
 		}
 	}
 	
-	private void displayTeachersList() throws ClassNotFoundException, SQLException {
+	void displayTeachersList() throws ClassNotFoundException, SQLException {
 		// TODO Auto-generated method stub
 		Connection con = DbUtil.dbConn();
 		Statement st = con.createStatement();

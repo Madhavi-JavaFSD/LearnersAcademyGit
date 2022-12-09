@@ -12,15 +12,21 @@ import com.stumgr.bean.Class_Subject_Teacher;
 import com.stumgr.dbutil.DbUtil;
 
 public class AssignSubject {
-
+	
+	ClassesDAO classesDAOObj = new ClassesDAO();
+	SubjectDAO subjectDAOObj = new SubjectDAO();
+	//TeacherDAO teacherDAOObj = new TeacherDAO();
 	public void modifySubjectForClass(Scanner sc) throws ClassNotFoundException, SQLException {	
 
+		classesDAOObj.displayClassList();
+		subjectDAOObj.displaySubjects();
+		//teacherDAOObj.displayTeachersList();
 		displaySubjectsForClass();
 		while(true)
 		{
 			int optionChosen = 0;
 			System.out.println("\n\nPlease select from the following options:");
-			System.out.println("1.Add a subject to a class.");
+			System.out.println("1.Assign a subject to a class.");
 			System.out.println("2.Delete the subject that had been assigned earlier for a class.");
 			System.out.println("3.Display Class-Subject-Teacher table.");
 			System.out.println("4.Go back to the main menu.");
@@ -69,7 +75,7 @@ public class AssignSubject {
 				Connection con = DbUtil.dbConn();
 				Statement st = con.createStatement();
 				String sql = "insert into Class_Subject_Teacher(ClassID,SubjectID) values ( " + nClassID + "," + nSubID + ")";
-				System.out.println("sql--" + sql);
+				//System.out.println("sql--" + sql);
 				int rows = 0;
 				try
 				{
@@ -140,7 +146,7 @@ public class AssignSubject {
 		}
 		if(list != null && list.size() > 0) 
 		{
-			System.out.println("--Existing Subjects for Classes--");
+			System.out.println("--Current List of Subjects that have been assigned for Classes--");
 			System.out.println("---------------------------------------------------------------------------------------------");
 			//System.out.println("ClassID" + "  " + "SubjectID" + "  "+ "  " + "TeacherID");
 			System.out.format("%7s %20s %20s","ClassID", "SubjectID", "TeacherID");
